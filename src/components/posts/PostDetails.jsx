@@ -1,6 +1,6 @@
 
 
-export default function PostDetails() {
+export default function PostDetails({loggedInUser}) {
 
     return <></>
 }

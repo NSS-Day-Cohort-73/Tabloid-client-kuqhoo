@@ -1,6 +1,6 @@
 
 
-export default function PostComments() {
+export default function PostComments({loggedInUser}) {
 
     return <></>
 }

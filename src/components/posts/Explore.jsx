@@ -1,6 +1,6 @@
 
 
-export default function Explore() {
+export default function Explore({loggedInUser}) {
 
     return <></>
 }

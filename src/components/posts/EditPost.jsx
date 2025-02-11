@@ -1,6 +1,6 @@
 
 
-export default function EditPost() {
+export default function EditPost({loggedInUser}) {
 
     return <></>
 }

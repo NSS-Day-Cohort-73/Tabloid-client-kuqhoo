@@ -1,6 +1,6 @@
 
 
-export default function NewComment() {
+export default function NewComment({loggedInUser}) {
 
     return <></>
 }
