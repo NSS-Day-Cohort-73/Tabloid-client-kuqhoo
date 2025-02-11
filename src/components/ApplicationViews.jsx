@@ -48,11 +48,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
 
             <Route path=":id/comments">
 
-            <Route index element={<AuthorizedRoute loggedInUser={loggedInUser}><PostComments/></AuthorizedRoute>} />
+                <Route index element={<AuthorizedRoute loggedInUser={loggedInUser}><PostComments/></AuthorizedRoute>} />
 
-            <Route path="edit/:id" element={<AuthorizedRoute loggedInUser={loggedInUser}><EditComment/></AuthorizedRoute>} />
-            
-            <Route path="new" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewComment/></AuthorizedRoute>} />
+                <Route path="edit/:id" element={<AuthorizedRoute loggedInUser={loggedInUser}><EditComment/></AuthorizedRoute>} />
+                
+                <Route path="new" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewComment/></AuthorizedRoute>} />
 
             </Route>
             
