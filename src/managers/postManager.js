@@ -1,4 +1,4 @@
-const _apiUrl = "/api/posts";
+const _apiUrl = "/api/post";
 
 export const createPost = (post) => {
     return fetch(_apiUrl, {
