@@ -1,6 +1,6 @@
 
 
-export default function MyPosts() {
+export default function MyPosts({loggedInUser}) {
 
     return <></>
 }

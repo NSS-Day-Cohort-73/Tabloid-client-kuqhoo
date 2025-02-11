@@ -1,6 +1,6 @@
 
 
-export default function SubscribedPosts() {
+export default function SubscribedPosts({loggedInUser}) {
 
     return <></>
 }

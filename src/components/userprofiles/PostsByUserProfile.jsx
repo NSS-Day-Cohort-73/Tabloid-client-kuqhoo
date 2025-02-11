@@ -1,6 +1,6 @@
 
 
-export default function PostsByUserProfile() {
+export default function PostsByUserProfile({loggedInUser}) {
 
     return <></>
 }

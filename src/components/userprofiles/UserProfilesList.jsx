@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProfiles } from "../../managers/userProfileManager";
 import { Link } from "react-router-dom";
 
-export default function UserProfileList() {
+export default function UserProfileList({loggedInUser}) {
   const [userprofiles, setUserProfiles] = useState([]);
 
   const getUserProfiles = () => {
