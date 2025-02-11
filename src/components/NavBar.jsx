@@ -9,6 +9,10 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import { logout } from "../managers/authManager";
 
@@ -28,6 +32,24 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={open} navbar>
               <Nav navbar>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/posts">
+                    Explore
+                  </NavLink>
+                </NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    My Posts
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem tag={RRNavLink} to="/posts/my">
+                      View My Posts
+                    </DropdownItem>
+                    <DropdownItem tag={RRNavLink} to="/posts/create">
+                      Create Post
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
                 {loggedInUser.roles.includes("Admin") && (
                   <NavItem>
                     <NavLink tag={RRNavLink} to="/userprofiles">
