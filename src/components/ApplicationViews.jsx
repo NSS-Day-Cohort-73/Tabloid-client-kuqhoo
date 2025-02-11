@@ -4,6 +4,9 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import UserProfileList from "./userprofiles/UserProfilesList";
 import UserProfileDetails from "./userprofiles/UserProfileDetails";
+import Tags from "./tags/Tags";
+import Explore from "./posts/Explore";
+import PostDetails from "./posts/PostDetails";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -17,6 +20,24 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
+        <Route path="/posts">
+            <Route
+                index
+                element={
+                    <AuthorizedRoute loggedInUser={loggedInUser}>
+                        <Explore />
+                    </AuthorizedRoute>
+                }
+            />
+            <Route
+                path=":id"
+                element={
+                    <AuthorizedRoute loggedInUser={loggedInUser}>
+                        <PostDetails />
+                    </AuthorizedRoute>
+                }
+            />
+        </Route>
         <Route path="/userprofiles">
           <Route
             index
@@ -35,6 +56,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             }
           />
         </Route>
+        <Route 
+            path="/tags"
+            element={
+                <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                    <Tags />
+                </AuthorizedRoute>
+            }
+        />
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
