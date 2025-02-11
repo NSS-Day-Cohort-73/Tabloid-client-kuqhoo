@@ -6,7 +6,7 @@ export const createPost = (post) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(order)
+        body: JSON.stringify(post)
     }).then((res) => res.json());
 };
 

@@ -58,7 +58,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             
             
             
-            <Route path="create" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewPost /></AuthorizedRoute>} />
+            <Route path="create" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewPost loggedInUser={loggedInUser}/></AuthorizedRoute>} />
             <Route path="subscribed" element={<AuthorizedRoute loggedInUser={loggedInUser}><SubscribedPosts /></AuthorizedRoute>} />
             
             <Route
