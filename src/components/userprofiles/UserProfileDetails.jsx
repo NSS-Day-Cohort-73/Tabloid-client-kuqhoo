@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProfile } from "../../managers/userProfileManager";
 
-export default function UserProfileDetails() {
+export default function UserProfileDetails({loggedInUser}) {
   const [userProfile, setUserProfile] = useState();
 
   const { id } = useParams();

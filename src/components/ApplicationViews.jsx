@@ -8,6 +8,14 @@ import Tags from "./tags/Tags";
 import Explore from "./posts/Explore";
 import PostDetails from "./posts/PostDetails";
 import { Categories } from "./categories/Categories";
+import PostComments from "./comments/PostComments";
+import { NewPost } from "./posts/NewPost";
+import SubscribedPosts from "./posts/SubscribedPosts";
+import NewComment from "./comments/NewComment";
+import EditComment from "./comments/EditComment";
+import EditPost from "./posts/EditPost";
+import PostsByUserProfile from "./userprofiles/PostsByUserProfile";
+import MyPosts from "./posts/MyPosts";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -30,6 +38,30 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
                     </AuthorizedRoute>
                 }
             />
+
+            <Route path=":id" element={<AuthorizedRoute loggedInUser={loggedInUser}><PostDetails/></AuthorizedRoute>} />
+
+            <Route path="edit/:id" element={<AuthorizedRoute loggedInUser={loggedInUser}><EditPost /></AuthorizedRoute>} />
+
+            <Route path="user/:id" element={<AuthorizedRoute loggedInUser={loggedInUser}><PostsByUserProfile/></AuthorizedRoute>} />
+
+            <Route path="my" element={<AuthorizedRoute loggedInUser={loggedInUser}><MyPosts/></AuthorizedRoute>} />
+
+            <Route path=":id/comments">
+
+                <Route index element={<AuthorizedRoute loggedInUser={loggedInUser}><PostComments/></AuthorizedRoute>} />
+
+                <Route path="edit/:id" element={<AuthorizedRoute loggedInUser={loggedInUser}><EditComment/></AuthorizedRoute>} />
+                
+                <Route path="new" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewComment/></AuthorizedRoute>} />
+
+            </Route>
+            
+            
+            
+            <Route path="create" element={<AuthorizedRoute loggedInUser={loggedInUser}><NewPost loggedInUser={loggedInUser}/></AuthorizedRoute>} />
+            <Route path="subscribed" element={<AuthorizedRoute loggedInUser={loggedInUser}><SubscribedPosts /></AuthorizedRoute>} />
+            
             <Route
                 path=":id"
                 element={
@@ -48,6 +80,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               </AuthorizedRoute>
             }
           />
+
           <Route
             path=":id"
             element={
@@ -68,6 +101,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
                 </AuthorizedRoute>
             }
         />
+
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
