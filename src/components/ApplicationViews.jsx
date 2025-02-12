@@ -7,6 +7,7 @@ import UserProfileDetails from "./userprofiles/UserProfileDetails";
 import Tags from "./tags/Tags";
 import Explore from "./posts/Explore";
 import PostDetails from "./posts/PostDetails";
+import { Categories } from "./categories/Categories";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -55,6 +56,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               </AuthorizedRoute>
             }
           />
+        </Route>
+        <Route path="categories">
+          <Route index element={<AuthorizedRoute loggedInUser={loggedInUser}><Categories loggedInUser={loggedInUser}/></AuthorizedRoute>} />
         </Route>
         <Route 
             path="/tags"
