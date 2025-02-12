@@ -30,13 +30,40 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           }
         />
         <Route path="/posts">
+          <Route index element={<Explore />} />
+          <Route path=":id" element={<PostDetails />} />
+          <Route
+            path="edit/:id"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <EditPost />
+              </AuthorizedRoute>
+            }
+          />
+          <Route
+            path="user/:id"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <PostsByUserProfile />
+              </AuthorizedRoute>
+            }
+          />
+          <Route
+            path="my"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <MyPosts />
+              </AuthorizedRoute>
+            }
+          />
+          <Route path=":id/comments">
             <Route
-                index
-                element={
-                    <AuthorizedRoute loggedInUser={loggedInUser}>
-                        <Explore />
-                    </AuthorizedRoute>
-                }
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <PostComments />
+                </AuthorizedRoute>
+              }
             />
 
             <Route path=":id" element={<AuthorizedRoute loggedInUser={loggedInUser}><PostDetails/></AuthorizedRoute>} />
@@ -63,13 +90,38 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             <Route path="subscribed" element={<AuthorizedRoute loggedInUser={loggedInUser}><SubscribedPosts /></AuthorizedRoute>} />
             
             <Route
-                path=":id"
-                element={
-                    <AuthorizedRoute loggedInUser={loggedInUser}>
-                        <PostDetails />
-                    </AuthorizedRoute>
-                }
+              path="edit/:id"
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <EditComment />
+                </AuthorizedRoute>
+              }
             />
+            <Route
+              path="new"
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                  <NewComment />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
+          <Route
+            path="create"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <NewPost />
+              </AuthorizedRoute>
+            }
+          />
+          <Route
+            path="subscribed"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser}>
+                <SubscribedPosts />
+              </AuthorizedRoute>
+            }
+          />
         </Route>
         <Route path="/userprofiles">
           <Route

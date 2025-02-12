@@ -29,3 +29,19 @@ export const getAllPosts = () => {
     return res.json();
   });
 };
+
+export const getPost = (id) => {
+  return fetch(`/api/post/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("tabloid_token")}`,
+    },
+    credentials: "include",
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("An error occurred while fetching the post");
+    }
+    return res.json();
+  });
+};
