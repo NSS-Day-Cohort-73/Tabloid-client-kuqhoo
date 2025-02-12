@@ -7,6 +7,7 @@ import UserProfileDetails from "./userprofiles/UserProfileDetails";
 import Tags from "./tags/Tags";
 import Explore from "./posts/Explore";
 import PostDetails from "./posts/PostDetails";
+import { Categories } from "./categories/Categories";
 import PostComments from "./comments/PostComments";
 import { NewPost } from "./posts/NewPost";
 import SubscribedPosts from "./posts/SubscribedPosts";
@@ -141,13 +142,16 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             }
           />
         </Route>
-        <Route
-          path="/tags"
-          element={
-            <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
-              <Tags />
-            </AuthorizedRoute>
-          }
+        <Route path="categories">
+          <Route index element={<AuthorizedRoute loggedInUser={loggedInUser}><Categories loggedInUser={loggedInUser}/></AuthorizedRoute>} />
+        </Route>
+        <Route 
+            path="/tags"
+            element={
+                <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                    <Tags />
+                </AuthorizedRoute>
+            }
         />
 
         <Route
