@@ -78,8 +78,9 @@ const handleSave = (e) => {
     </div>
     </ListGroup>
     </Card>
-    <div className="add-category-container">
+    {loggedInUser ? loggedInUser.roles.includes("Admin") && ( <div className="add-category-container">
     <div className="add-bar"><Input onChange={(event) => handleInputChange(event) }className="add-bar-input"type="text" placeholder="Add New Category"/> <Button className="save-button" onClick={(event) => handleSave(event)}>Save</Button></div>
-    </div>
+    </div>): ("")}
+   
     </>)
 }
