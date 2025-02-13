@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { getCommentsByPostId } from "../../managers/commentManager";
-import { Alert, Button, Card, CardBody, CardTitle, Col, Container } from "reactstrap";
+import { Alert, Button, Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 import { getPost } from "../../managers/postManager";
 
 
@@ -35,24 +35,32 @@ export default function PostComments({ loggedInUser }) {
                 Back to Post
             </Button>
             <Col>
-                {comments.map((comment) => (
-                    <Row key={comment.id}>
+                {comments[0]
+                    ? (comments.map((comment) => (
+                        <Row key={comment.id}>
+                            <Card>
+                                <CardBody>
+                                    <CardTitle tag="h5">
+                                        {comment.content}
+                                    </CardTitle>
+                                    <div>
+                                        Posted by {comment.author.userName} on {new Date(comment.createdAt).toLocaleDateString()}
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        </Row>
+                    ))) : (
                         <Card>
                             <CardBody>
-                                <CardTitle tag="h5">
-                                    {comment.author.userName}
-                                </CardTitle>
-                                <div>
-                                    {comment.content}
-                                </div>
-                                <div>
-                                    Posted: {new Date(comment.CreatedAt).toLocaleDateString()}
-                                </div>
+                                <div>There's nothing here yet!</div>
                             </CardBody>
                         </Card>
-                    </Row>
-                ))}
-            </Col>            
+                    )
+                }
+            </Col>
+            <Button onClick={() => {navigate(`/posts/${id}/comments/new`)}}>
+                Post a Comment!
+            </Button>          
         </Container>
     </>)
 }
