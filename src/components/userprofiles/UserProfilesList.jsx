@@ -1,25 +1,69 @@
 import { useEffect, useState } from "react";
 import { getProfiles } from "../../managers/userProfileManager";
 import { Link } from "react-router-dom";
+import { 
+  Container, 
+  Card, 
+  CardBody,
+  CardTitle,
+  Table,
+  Badge
+} from "reactstrap";
 
 export default function UserProfileList({loggedInUser}) {
-  const [userprofiles, setUserProfiles] = useState([]);
+  const [userProfiles, setUserProfiles] = useState([]);
 
-  const getUserProfiles = () => {
-    getProfiles().then(setUserProfiles);
-  };
   useEffect(() => {
-    getUserProfiles();
+    getProfiles().then(profiles => {
+      // Sort profiles by userName (display name) alphabetically
+      const sortedProfiles = profiles.sort((a, b) => 
+        a.userName.localeCompare(b.userName)
+      );
+      setUserProfiles(sortedProfiles);
+    });
   }, []);
+
   return (
-    <>
-      <p>User Profile List</p>
-      {userprofiles.map((p) => (
-        <p key={p.id}>
-          {p.firstName} {p.lastName} {p.userName}{" "}
-          <Link to={`/userprofiles/${p.id}`}>Details</Link>
-        </p>
-      ))}
-    </>
+    <Container className="mt-4">
+      <Card className="shadow-sm">
+        <CardBody>
+          <CardTitle tag="h2" className="mb-4">User Profiles</CardTitle>
+          <Table hover>
+            <thead>
+              <tr>
+                <th>Full Name</th>
+                <th>Display Name</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userProfiles.map((profile) => (
+                <tr key={profile.id}>
+                  <td>{profile.fullName}</td>
+                  <td>{profile.userName}</td>
+                  <td>
+                    <Badge 
+                      color={profile.roles?.includes("Admin") ? "primary" : "secondary"}
+                      pill
+                    >
+                      {profile.roles?.includes("Admin") ? "Admin" : "User"}
+                    </Badge>
+                  </td>
+                  <td>
+                    <Link 
+                      to={`/userprofiles/${profile.id}`}
+                      className="btn btn-link text-primary"
+                    >
+                      View Details
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </CardBody>
+      </Card>
+    </Container>
   );
 }
