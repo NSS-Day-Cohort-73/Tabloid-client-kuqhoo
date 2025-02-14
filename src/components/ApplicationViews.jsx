@@ -136,7 +136,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           </Route>
           <Route path="/reactions">
           <Route index element={<AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
-                <ReactionList />
+                <ReactionList loggedInUser={loggedInUser} />
               </AuthorizedRoute>}
               />
 
