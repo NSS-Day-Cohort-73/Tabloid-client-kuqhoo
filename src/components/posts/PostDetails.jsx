@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getPost } from "../../managers/postManager";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
@@ -30,8 +30,11 @@ export default function PostDetails() {
           <img src={post.headerImage} alt="Post header" className="img-fluid" />
         )}
         <CardText className="text-muted">
-          By {post.author.userName} on{" "}
-          {new Date(post.createdAt).toLocaleDateString()}
+          By{" "}
+          <Link to={`/userprofiles/${post.author.id}`}>
+            {post.author.userName}
+          </Link>{" "}
+          on {new Date(post.createdAt).toLocaleDateString()}
         </CardText>
         <CardText>{post.content}</CardText>
       </CardBody>

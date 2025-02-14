@@ -5,7 +5,11 @@ export const getProfiles = () => {
 };
 
 export const getProfile = (id) => {
-  return fetch(`/api/userprofile/admin/details/${id}`).then((res) =>
-    res.json()
-  );
+  return fetch(`/api/userprofile/admin/details/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  }).then((res) => res.json());
 };
