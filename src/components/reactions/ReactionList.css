@@ -108,3 +108,15 @@
     padding-bottom: 15px;
 }
 
+.edit-icon-preview{
+    width: 45px;
+    min-height: 45px;
+}
+.edit-icon{
+    font-size: 45px;
+}
+.edit-type-text{
+    font-size: 35px;
+    width: 200px;
+    height: 45px;
+}
