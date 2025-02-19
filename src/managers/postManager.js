@@ -70,3 +70,19 @@ export const getMyPosts = () => {
     return res.json();
   });
 };
+
+export const searchPosts = (searchTerm, categoryId, tagId) => {
+  let url = "/api/post/search?";
+
+  if (searchTerm) url += `searchTerm=${encodeURIComponent(searchTerm)}&`;
+  if (categoryId) url += `categoryId=${categoryId}&`;
+  if (tagId) url += `tagId=${tagId}`;
+
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  }).then((res) => res.json());
+};

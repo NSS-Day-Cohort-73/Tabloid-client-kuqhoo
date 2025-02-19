@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getPost } from "../../managers/postManager";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import { subscribeToAuthor } from "../../managers/subscriptionManager";
 
 export default function PostDetails() {
   const [post, setPost] = useState(null);
@@ -17,6 +18,14 @@ export default function PostDetails() {
 
   const handleViewCommentsClick = () => {
     navigate(`/posts/${id}/comments`);
+  };
+
+  const handleSubscribe = () => {
+    subscribeToAuthor(post.author.id)
+      .then(() => {
+        window.alert("Subscribed successfully!");
+      })
+      .catch((err) => setError(err.message));
   };
 
   if (error) {
@@ -42,7 +51,12 @@ export default function PostDetails() {
           on {new Date(post.createdAt).toLocaleDateString()}
         </CardText>
         <CardText>{post.content}</CardText>
-        <Button onClick={handleViewCommentsClick}>View Comments</Button>
+        <div className="d-flex gap-2">
+          <Button onClick={handleViewCommentsClick}>View Comments</Button>
+          <Button color="success" onClick={handleSubscribe}>
+            Subscribe to {post.author.firstName}
+          </Button>
+        </div>
       </CardBody>
     </Card>
   );
