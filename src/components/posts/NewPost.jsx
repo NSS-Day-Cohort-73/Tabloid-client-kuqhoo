@@ -15,7 +15,7 @@ export const NewPost = ({ loggedInUser }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newPost = {
-            userId: loggedInUser.id,
+            userProfileId: loggedInUser.id,
             title: title,
             content: content,
             categoryId: categoryId
