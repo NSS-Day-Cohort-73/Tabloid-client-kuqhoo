@@ -116,11 +116,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
                 index
                 element={
                   <AuthorizedRoute loggedInUser={loggedInUser}>
-<<<<<<< HEAD
                     <PostComments loggedInUser={loggedInUser}/>
-=======
-                    <PostComments />
->>>>>>> f7b868d71b9974e0fa08d45e5e6de0e81049869a
                   </AuthorizedRoute>
                 }
               />
@@ -138,11 +134,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
                 path="new"
                 element={
                   <AuthorizedRoute loggedInUser={loggedInUser}>
-<<<<<<< HEAD
                     <NewComment loggedInUser={loggedInUser}/>
-=======
-                    <NewComment />
->>>>>>> f7b868d71b9974e0fa08d45e5e6de0e81049869a
                   </AuthorizedRoute>
                 }
               />
