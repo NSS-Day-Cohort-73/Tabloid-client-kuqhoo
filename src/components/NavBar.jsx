@@ -37,6 +37,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     Explore
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/subscriptions">
+                    My Subscriptions
+                  </NavLink>
+                </NavItem>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
                     My Posts
@@ -59,7 +64,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                 )}
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/categories">
-                  Categories
+                    Categories
                   </NavLink>
                 </NavItem>
               </Nav>

@@ -9,17 +9,57 @@ import {
   CardTitle,
   Container,
   Table,
+  Row,
+  Col,
 } from "reactstrap";
+import {
+  checkSubscription,
+  unsubscribeFromAuthor,
+  subscribeToAuthor,
+} from "../../managers/subscriptionManager";
+import { Link } from "react-router-dom";
+
+const cardImageStyle = {
+  height: "200px",
+  objectFit: "cover",
+  width: "100%",
+};
+
+const cardStyle = {
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+};
+
+const cardBodyStyle = {
+  flex: "1 1 auto",
+};
 
 export default function UserProfileDetails() {
   const [userProfile, setUserProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const { id } = useParams();
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getProfile(id).then(setUserProfile);
     getPostsByUser(id).then(setPosts);
+    checkSubscription(id).then(setIsSubscribed);
   }, [id]);
+
+  const handleSubscriptionClick = () => {
+    if (isSubscribed) {
+      unsubscribeFromAuthor(id)
+        .then(() => setIsSubscribed(false))
+        .catch((err) => setError(err.message));
+    } else {
+      subscribeToAuthor(id)
+        .then(() => setIsSubscribed(true))
+        .catch((err) => setError(err.message));
+    }
+  };
 
   if (!userProfile) {
     return (
@@ -50,7 +90,18 @@ export default function UserProfileDetails() {
             />
             <h2>{userProfile.fullName}</h2>
             <p>Total Posts: {posts.length}</p>
-            <Button color="primary">Subscribe</Button>
+            <Button
+              color="success"
+              onClick={handleSubscriptionClick}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              {isSubscribed
+                ? isHovering
+                  ? "Unsubscribe"
+                  : "Subscribed"
+                : "Subscribe"}
+            </Button>
           </div>
 
           {/* Profile Details */}
@@ -89,15 +140,31 @@ export default function UserProfileDetails() {
       </Card>
 
       <h3>Posts by {userProfile.fullName}</h3>
-      {posts.map((post) => (
-        <Card key={post.id} className="mb-3">
-          <CardBody>
-            <CardTitle tag="h5">{post.title}</CardTitle>
-            <div>Category: {post.categoryName}</div>
-            <div>Posted: {new Date(post.createdAt).toLocaleDateString()}</div>
-          </CardBody>
-        </Card>
-      ))}
+      <Row>
+        {posts.map((post) => (
+          <Col md={4} key={post.id} className="mb-4">
+            <Card style={cardStyle}>
+              {post.headerImage && (
+                <img
+                  src={post.headerImage}
+                  alt=""
+                  style={cardImageStyle}
+                  className="card-img-top"
+                />
+              )}
+              <CardBody style={cardBodyStyle}>
+                <CardTitle tag="h5">
+                  <Link to={`/posts/${post.id}`}>{post.title}</Link>
+                </CardTitle>
+                <div>Category: {post.categoryName}</div>
+                <div>
+                  Posted: {new Date(post.createdAt).toLocaleDateString()}
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </Container>
   );
 }
