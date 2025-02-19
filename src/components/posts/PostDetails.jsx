@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { getPost } from "../../managers/postManager";
-import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 
 export default function PostDetails() {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -13,6 +14,10 @@ export default function PostDetails() {
       .then(setPost)
       .catch((err) => setError(err.message));
   }, [id]);
+
+  const handleViewCommentsClick = () => {
+    navigate(`/posts/${id}/comments`);
+  };
 
   if (error) {
     return <div className="alert alert-danger">{error}</div>;
@@ -37,6 +42,7 @@ export default function PostDetails() {
           on {new Date(post.createdAt).toLocaleDateString()}
         </CardText>
         <CardText>{post.content}</CardText>
+        <Button onClick={handleViewCommentsClick}>View Comments</Button>
       </CardBody>
     </Card>
   );
