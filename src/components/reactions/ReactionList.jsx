@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllReactionTypes } from "../../managers/reactionsManager"
+import { getAllReactionTypes, postNewReactionType } from "../../managers/reactionsManager"
 import { Button, Card, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, ListGroup, ListGroupItem } from "reactstrap"
 import * as SolidIcons from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -9,8 +9,12 @@ import "./ReactionList.css"
 export const ReactionList = ({loggedInUser}) => {
     const [reactionTypes, setReactionTypes] = useState([])
     const [editingCardId, setEditingCardId] = useState(0)
+    const [faIcon, setFaIcon] = useState("")
+    const [type, setType] = useState("")
+
 
     const [selectedIcon, setSelectedIcon] = useState(null)
+    const [selectedIconName, setSelectedIconName] = useState("")
 
 
 
@@ -18,18 +22,43 @@ export const ReactionList = ({loggedInUser}) => {
         getAllReactionTypes().then((data) => setReactionTypes(data))
     }, [])
 
+
     const handleIconSelection = (event) => {
-        const selectedIconName = event.target.value;
-        const selectedIconObject = RegularIcons[selectedIconName]
+        const iconName = event.target.value
+        setSelectedIconName(iconName);
+        const selectedIconObject = RegularIcons[iconName]
         setSelectedIcon(selectedIconObject);
-        console.log(selectedIcon)
+    }
+
+    const handleTypeChange = (event) => {
+        setType(event.target.value)
+
     }
 
     const regularIcons = Object.keys(RegularIcons).map((iconName) => ({
         prefix: "far",
         name: iconName
     }));
-    console.log(regularIcons)
+
+    const handleSave = () => {
+        const newReactionType = {
+            faIcon: selectedIconName,
+            type
+        }
+        postNewReactionType(newReactionType).then(() => getAllReactionTypes()).then((data) => {
+            setReactionTypes(data);
+            setFaIcon("");
+            setType("");
+            setSelectedIcon(null)
+            setSelectedIconName("")
+            
+        })
+
+    }
+
+    const handleEditClick = (id) => {
+        setEditingCardId(id)
+    }
 
 return (<>
     <div className="reactions-title">
@@ -52,7 +81,7 @@ return (<>
                             <div className="right-of-card">
                                 {loggedInUser? loggedInUser.roles.includes("Admin") &&(
                                     <div className="reactions-button-group">
-                                    <Button className="edit-reactions-button">Edit</Button>
+                                    <Button className="edit-reactions-button" onClick={() => handleEditClick(rt.id)}>Edit</Button>
                                     <Button className="delete-reactions-button"> Delete</Button>
                                     </div>
                                 ): ""}
@@ -62,18 +91,19 @@ return (<>
             </div>
         </ListGroup>
     </Card>
-    
-<div className="reaction-add-bar"><Input className="react-add-bar-input" type="text" placeholder="Insert Reaction Name"/>
-<select onChange={(event) => {handleIconSelection(event)}}> <option value={0}>Select an Icon</option>
+<div className="reaction-add-container">    
+<div className="reaction-add-bar"><div className="icon-preview">
+    {selectedIcon && (
+        <FontAwesomeIcon className="preview-icon-icon"icon={selectedIcon} />
+    )}
+</div><Input onChange={() => handleTypeChange(event)} className="react-add-bar-input" type="text" placeholder="Insert Reaction Name"/>
+<select className="icon-select" onChange={(event) => {handleIconSelection(event)}}> <option value={0}>Select an Icon</option>
     {regularIcons.filter((icon) => icon.name !== "far" && icon.name !== "prefix" ).map((icon) => (
         <option key={icon.name} value={icon.name}>{icon.name}</option>
     ))}
 </select>
-<div className="icon-preview">
-    {selectedIcon && (
-        <FontAwesomeIcon icon={selectedIcon} />
-    )}
-</div>
- <Button>Save</Button></div>
+
+ <Button onClick={() => handleSave()}>Save</Button></div>
+ </div>
 </>)
 }

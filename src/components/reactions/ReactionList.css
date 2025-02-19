@@ -70,7 +70,41 @@
     justify-content: center;
 }
 .icon-preview{
-    width: 100px;
-    min-height: 100px;
+    width: 45px;
+    min-height: 45px;
     border: 2px solid black;
 }
+
+.icon-preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-icon-icon{
+    font-size: 35px;
+}
+
+.icon-select{
+    height: 50px;
+}
+
+.reaction-add-bar{
+    display:flex;
+    width: 700px;
+    justify-content: space-between;
+    align-items: center;
+}
+.react-add-bar-input{
+    width: 300px;
+    height: 50px;
+}
+
+.reaction-add-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 80px;
+    padding-bottom: 15px;
+}
+
