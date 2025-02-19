@@ -8,8 +8,8 @@ export const postNewComment = (comment) => {
     return fetch(_apiUrl, {
         method: "POST",
         headers: {
-            "Application-Type": "application/json"
+            "Content-Type": "application/json"
         },
-        body: comment
+        body: JSON.stringify(comment)
     }).then((res) => res.json());
 }
