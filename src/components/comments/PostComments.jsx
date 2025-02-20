@@ -58,7 +58,7 @@ export default function PostComments({ loggedInUser }) {
                     )
                 }
             </Col>
-            <Button onClick={() => {navigate(`/posts/${id}/comments/new`)}}>
+            <Button onClick={() => {navigate(`/posts/${id}/comments/${id}/comments/new`)}}>
                 Post a Comment!
             </Button>          
         </Container>
