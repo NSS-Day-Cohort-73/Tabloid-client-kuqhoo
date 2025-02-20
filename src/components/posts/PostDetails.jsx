@@ -23,7 +23,6 @@ export default function PostDetails({ loggedInUser }) {
 
   useEffect(() => {
     if (loggedInUser?.id) {
-        console.log('setting userId to: ', loggedInUser.id)
         setUserId(parseInt(loggedInUser.id))
     }
   }, [loggedInUser?.id])
@@ -31,7 +30,6 @@ export default function PostDetails({ loggedInUser }) {
   useEffect(() => {
     getPost(id)
       .then((fetchedPost) => {
-        console.log('Fetched post author id:', fetchedPost.author?.id);
         setPost(fetchedPost);
       })
       .catch((err) => setError(err.message));
