@@ -58,7 +58,6 @@ export const ReactionList = ({loggedInUser}) => {
         }
         postNewReactionType(newReactionType).then(() => getAllReactionTypes()).then((data) => {
             setReactionTypes(data);
-            setFaIcon("");
             setType("");
             setSelectedIcon(null)
             setSelectedIconName("")
