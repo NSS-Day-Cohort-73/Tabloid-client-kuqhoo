@@ -10,6 +10,12 @@ export const createPost = (post) => {
   }).then((res) => res.json());
 };
 
+export const deletePostById = (id) => {
+    return fetch(_apiUrl + `/${id}`, {
+        method: "DELETE"
+    })
+}
+
 export const getAllPosts = () => {
   return fetch("/api/post", {
     method: "GET",
