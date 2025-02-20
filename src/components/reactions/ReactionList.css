@@ -1,0 +1,122 @@
+.left-of-card{
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.fontawesome-reaction-icon{
+    font-size: 45px;
+}
+.reaction-name h5{
+    font-size: 35px;
+    margin: 0;
+}
+.reactions-title{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+    min-height: 100px;
+}
+.reactions-title h2{
+    font-size: 50px;
+}
+.reaction-list{
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reaction-list-item{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    width: 700px;
+}
+
+.edit-reactions-button{
+    display: flex;
+    background-color: white;
+    color: black;
+    border-radius: 0;
+    width: 65px;
+    height: 30px;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+.delete-reactions-button{
+    display: flex;
+    background-color: rgb(211, 23, 23);
+    color: white;
+    border-radius: 0;
+    width: 65px;
+    height: 30px;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.reactions-button-group{
+    display: flex;
+    min-width: 150px;
+    justify-content: space-between;
+}
+.right-of-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-preview{
+    width: 45px;
+    min-height: 45px;
+    border: 2px solid black;
+}
+
+.icon-preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-icon-icon{
+    font-size: 35px;
+}
+
+.icon-select{
+    height: 50px;
+}
+
+.reaction-add-bar{
+    display:flex;
+    width: 700px;
+    justify-content: space-between;
+    align-items: center;
+}
+.react-add-bar-input{
+    width: 300px;
+    height: 50px;
+}
+
+.reaction-add-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 80px;
+    padding-bottom: 15px;
+}
+
+.edit-icon-preview{
+    width: 45px;
+    min-height: 45px;
+}
+.edit-icon{
+    font-size: 45px;
+}
+.edit-type-text{
+    font-size: 35px;
+    width: 200px;
+    height: 45px;
+}

@@ -16,6 +16,7 @@ import EditComment from "./comments/EditComment";
 import EditPost from "./posts/EditPost";
 import PostsByUserProfile from "./userprofiles/PostsByUserProfile";
 import MyPosts from "./posts/MyPosts";
+import { ReactionList } from "./reactions/ReactionList";
 import Subscriptions from "./subscriptions/Subscriptions";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -192,6 +193,12 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               </AuthorizedRoute>
             }
           />
+          </Route>
+          <Route path="/reactions">
+          <Route index element={<AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                <ReactionList loggedInUser={loggedInUser} />
+              </AuthorizedRoute>}
+              />
 
           <Route
             path=":id"
