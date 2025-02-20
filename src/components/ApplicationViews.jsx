@@ -33,7 +33,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         />
         <Route path="/posts">
           <Route index element={<Explore />} />
-          <Route path=":id" element={<PostDetails />} />
+          <Route path=":id" element={<PostDetails loggedInUser={loggedInUser}/>} />
           <Route
             path="create"
             element={
@@ -71,7 +71,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               index
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <PostComments />
+                  <PostComments loggedInUser={loggedInUser}/>
                 </AuthorizedRoute>
               }
             />
@@ -80,7 +80,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               path=":id"
               element={
                 <AuthorizedRoute loggedInUser={loggedInUser}>
-                  <PostDetails />
+                  <PostDetails loggedInUser={loggedInUser}/>
                 </AuthorizedRoute>
               }
             />

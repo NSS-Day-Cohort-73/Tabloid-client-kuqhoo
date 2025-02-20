@@ -1,18 +1,37 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { getPost } from "../../managers/postManager";
+import { deletePostById, getPost } from "../../managers/postManager";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import { subscribeToAuthor } from "../../managers/subscriptionManager";
 
-export default function PostDetails() {
+export default function PostDetails({ loggedInUser }) {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [userId, setUserId] = useState(0);
+
+  const handleDeletePost = () => {
+    if (window.confirm("Are you sure you want to delete this post? This action cannot be undone.")) {
+      deletePostById(post.id)
+        .then(() => {
+          navigate("/posts");
+        })
+        .catch((err) => setError(err.message));
+    }
+  };
+
+  useEffect(() => {
+    if (loggedInUser?.id) {
+        setUserId(parseInt(loggedInUser.id))
+    }
+  }, [loggedInUser?.id])
 
   useEffect(() => {
     getPost(id)
-      .then(setPost)
+      .then((fetchedPost) => {
+        setPost(fetchedPost);
+      })
       .catch((err) => setError(err.message));
   }, [id]);
 
@@ -52,10 +71,15 @@ export default function PostDetails() {
         </CardText>
         <CardText>{post.content}</CardText>
         <div className="d-flex gap-2">
-          <Button onClick={handleViewCommentsClick}>View Comments</Button>
-          <Button color="success" onClick={handleSubscribe}>
-            Subscribe to {post.author.firstName}
-          </Button>
+            <Button onClick={handleViewCommentsClick}>View Comments</Button>
+            <Button color="success" onClick={handleSubscribe}>
+                Subscribe to {post.author.firstName}
+            </Button>
+            {loggedInUser && userId === post.author?.id ? (
+                <Button onClick={handleDeletePost}>
+                    Delete Post
+                </Button>
+            ) : null}
         </div>
       </CardBody>
     </Card>
