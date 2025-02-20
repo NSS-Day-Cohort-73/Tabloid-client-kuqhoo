@@ -8,11 +8,12 @@ export default function NewComment({ loggedInUser }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [body, setBody] = useState("");
+    const [userId, setUserId] = useState(0);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const newComment = {
-            userId: parseInt(loggedInUser.id),
+            userProfileId: userId,
             postId: parseInt(id),
             content: body
         };
@@ -20,6 +21,10 @@ export default function NewComment({ loggedInUser }) {
             navigate(`/posts/${id}/comments`);
         })
     }
+
+    useEffect(() => {
+        setUserId(parseInt(loggedInUser.id))
+    }, [id])
 
     return (<>
         <h2>Post a New Comment</h2>
