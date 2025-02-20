@@ -112,7 +112,9 @@ return (<>
                    return(
                         <ListGroupItem key={rt.id} className="reaction-list-item">
                             {editingCardId === rt.id ? (
+                                
                                 <>
+                                
                                 <div className="edit-icon-preview">
                                 {selectedEditIcon && (
                                 <FontAwesomeIcon className="edit-icon"icon={selectedEditIcon} />
