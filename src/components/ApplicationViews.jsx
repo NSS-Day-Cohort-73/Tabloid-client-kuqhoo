@@ -18,6 +18,8 @@ import PostsByUserProfile from "./userprofiles/PostsByUserProfile";
 import MyPosts from "./posts/MyPosts";
 import { ReactionList } from "./reactions/ReactionList";
 import Subscriptions from "./subscriptions/Subscriptions";
+import TagForm from "./tags/TagForm";
+import TagDelete from "./tags/tagDelete";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -219,14 +221,41 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             }
           />
         </Route>
-        <Route
-          path="/tags"
-          element={
-            <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
-              <Tags />
-            </AuthorizedRoute>
-          }
-        />
+        <Route path="/tags">
+          <Route 
+            index 
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                <Tags loggedInUser={loggedInUser} />
+              </AuthorizedRoute>
+            } 
+          />
+          
+          <Route 
+            path="create" 
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                <TagForm loggedInUser={loggedInUser} />
+              </AuthorizedRoute>
+            } 
+          />
+          
+          <Route 
+            path="edit/:id" 
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                <TagForm loggedInUser={loggedInUser} />
+              </AuthorizedRoute>
+            } 
+          />
+          <Route path="delete/:id"
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                <TagDelete loggedInUser={loggedInUser} />
+              </AuthorizedRoute>
+            } 
+          />
+        </Route>
 
         <Route
           path="login"
